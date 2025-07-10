@@ -1,3 +1,4 @@
+<script>
 document.getElementById("imageUpload").addEventListener("change", function(event) {
     const file = event.target.files[0];
     const formData = new FormData();
@@ -9,18 +10,25 @@ document.getElementById("imageUpload").addEventListener("change", function(event
     })
     .then(res => res.json())
     .then(data => {
-        const prediction = data.prediction;
+        const prediction = data.gesture;  // use .gesture not .prediction based on your Flask backend
         console.log("Predicted:", prediction);
-
         const sealImage = document.getElementById("sealImage");
         sealImage.className = ""; // reset
 
-        if (prediction === "swipe_left") sealImage.classList.add("animate__animated", "animate__slideOutLeft");
-        else if (prediction === "swipe_right") sealImage.classList.add("animate__animated", "animate__slideOutRight");
-        else if (prediction === "zoom_in") sealImage.classList.add("animate__animated", "animate__zoomIn");
-        else if (prediction === "zoom_out") sealImage.classList.add("animate__animated", "animate__zoomOut");
-        else if (prediction === "swipe_up") sealImage.classList.add("animate__animated", "animate__fadeOutUp");
-        else if (prediction === "swipe_down") sealImage.classList.add("animate__animated", "animate__fadeOutDown");
+        if (prediction === "swipe_left")
+            sealImage.classList.add("animate__animated", "animate__slideOutLeft");
+        else if (prediction === "swipe_right")
+            sealImage.classList.add("animate__animated", "animate__slideOutRight");
+        else if (prediction === "zoom_in")
+            sealImage.classList.add("animate__animated", "animate__zoomIn");
+        else if (prediction === "zoom_out")
+            sealImage.classList.add("animate__animated", "animate__zoomOut");
+        else if (prediction === "swipe_up")
+            sealImage.classList.add("animate__animated", "animate__fadeOutUp");
+        else if (prediction === "swipe_down")
+            sealImage.classList.add("animate__animated", "animate__fadeOutDown");
     });
 });
+</script>
+
 
