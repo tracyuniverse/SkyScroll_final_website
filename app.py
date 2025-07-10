@@ -4,10 +4,12 @@ import torch
 import torchvision.transforms as transforms
 import os
 from utils import load_model, predict_gesture
-
-# 🔽 ADD THIS block BEFORE loading the model
 import gdown
 
+# ADD THIS LINE - it was missing!
+app = Flask(__name__)
+
+# Download model from Google Drive
 model_path = 'gesture_model.pth'
 if not os.path.exists(model_path):
     print("⏬ Downloading model from Google Drive...")
@@ -15,7 +17,7 @@ if not os.path.exists(model_path):
 else:
     print("✅ Model already exists. Skipping download.")
 
-# 🔽 THEN load the model
+# Load the model
 model = load_model(model_path)
 
 @app.route('/')
@@ -33,4 +35,5 @@ def upload():
     return jsonify({'error': 'No file received'}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
